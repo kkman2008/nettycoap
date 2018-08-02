@@ -1,0 +1,125 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>de.uzl.itm</groupId>
+
+    <artifactId>ncoap-complete</artifactId>
+    <packaging>pom</packaging>
+    <version>1.8.3-SNAPSHOT</version>
+
+    <name>nCoAP Complete</name>
+    <description>
+      This is the wrapper module to include the protocol implementation (ncoap-core) and simple examples
+      on how to build clients (ncoap-simple-client) and servers (ncoap-simple-server)
+    </description>
+    <url>https://github.com/okleine/nCoAP</url>
+
+    <modules>
+        <module>ncoap-core</module>
+        <module>ncoap-simple-client</module>
+        <module>ncoap-simple-server</module>
+    </modules>
+
+    <distributionManagement>
+        <repository>
+            <id>itm-maven-repository-releases</id>
+            <name>ITM Maven Releases Repository</name>
+            <url>https://maven.itm.uni-luebeck.de/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>itm-maven-repository-snapshots</id>
+            <name>ITM Maven Snapshots Repository</name>
+            <url>https://maven.itm.uni-luebeck.de/repository/snapshots/</url>
+        </snapshotRepository>
+        <site>
+            <id>kleine-maven-site</id>
+            <url>scpexe://itm01.itm.uni-luebeck.de/www/itm-media/people/kleine/maven/${project.artifactId}/${project.version}</url>
+        </site>
+    </distributionManagement>
+
+    <reporting>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>2.9.1</version>
+            <configuration>
+              <additionalparam>-Xdoclint:none</additionalparam>
+              <links>
+                <link>http://netty.io/3.9/api/</link>
+                <link>http://docs.guava-libraries.googlecode.com/git-history/v16.0.1/javadoc/</link>
+              </links>
+              <stylesheetfile>src/main/resources/stylesheet.css</stylesheetfile>
+            </configuration>
+            <reportSets>
+              <reportSet>
+                <reports>
+                  <report>javadoc</report>
+                </reports>
+              </reportSet>
+            </reportSets>
+          </plugin>
+        </plugins>
+    </reporting>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <version>1.9.0</version>
+                <configuration>
+                    <aggregate>true</aggregate>
+                    <header>${basedir}/license.txt</header>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                    <strictCheck>true</strictCheck>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <!--<extensions>-->
+            <!--<extension>-->
+                <!--<groupId>org.apache.maven.wagon</groupId>-->
+                <!--<artifactId>wagon-ssh-external</artifactId>-->
+                <!--<version>1.0</version>-->
+            <!--</extension>-->
+        <!--</extensions>-->
+    </build>
+</project>
